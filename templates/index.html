@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PariSat Tracking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Roboto', sans-serif;
+            background-color: #ECEFF1;
+        }
+        #title-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background-color: #CFD8DC;
+            flex: 0 1 auto;
+            position: relative;
+        }
+        #logo {
+            position: absolute;
+            right: 20px;
+        }
+        #title {
+            text-align: center;
+            line-height: 0.5;
+        }
+        #content {
+            display: flex;
+            flex: 1 1 auto;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #plot {
+            flex: 0 1 70%;
+            height: 100%;
+        }
+        #description {
+            flex: 0 1 30%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+        }
+        #description .next-passage {
+            margin: 0;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+        .indented {
+            margin-left: 20px;
+            line-height: 0.5;
+        }
+        input[type="number"] {
+            width: 70%;
+            margin-bottom: 15px;
+            font-family: 'Roboto', sans-serif;
+            border: none;
+            outline: none;
+            background-color: transparent;
+        }
+        button#update-observer {
+            background-color: #CFD8DC;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            width: 71.55%;
+            border-radius: 10px;
+        }
+    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <div id="title-container">
+        <img id="logo" src="{{ url_for('static', filename='img/logo-parisat-full.svg') }}" alt="Logo" width="100" height="100">
+        <div id="title">
+            <h1>PariSat Tracking</h1>
+            <p>NORAD ID: 60235</p>
+            <p id="tle-update"></p>
+        </div>
+    </div>
+    <div id="content">
+        <div id="plot"></div>
+        <div id="description">
+            <div class="next-passage">
+                <h2>Next Passage Time</h2>
+                <h3 id="next-passage-time">Calculating...</h3>
+                <p id="next-passage-azimuth" class="indented"></p>
+                <p id="next-passage-elevation" class="indented"></p>
+                <p id="next-passage-distance" class="indented"></p>
+            </div>
+            <label for="latitude">Latitude:</label>
+            <input type="number" id="latitude" name="latitude" step="any" value="48.8566">
+            <label for="longitude">Longitude:</label>
+            <input type="number" id="longitude" name="longitude" step="any" value="2.3522">
+            <button id="update-observer">Update Observer</button>
+        </div>
+    </div>
+</body>
+</html>
