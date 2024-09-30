@@ -26,7 +26,7 @@ from beyond.dates import Date
 import gc
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='eventlet')
 logging.getLogger('werkzeug').disabled = True
 
 observer_lat = 48.8566
