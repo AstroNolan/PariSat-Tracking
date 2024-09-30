@@ -13,6 +13,7 @@ cycler==0.12.1
 Flask==3.0.3
 Flask-SocketIO==5.3.7
 fonttools==4.54.1
+gunicorn==23.0.0
 h11==0.14.0
 html5lib==1.1
 idna==3.10
