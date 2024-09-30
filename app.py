@@ -274,4 +274,5 @@ if __name__ == '__main__':
     thread = threading.Thread(target=update_orbit_data)
     thread.daemon = True
     thread.start()
-    socketio.run(app, debug=True)
+    socketio.start_background_task(update_orbit_data)
+    socketio.run(app, host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
