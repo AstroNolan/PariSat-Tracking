@@ -252,7 +252,6 @@ def update_orbit_data():
         gc.collect()
 
         iteration_duration = time_module.time() - iteration_start_time
-        print("it time : ", iteration_duration)
         sleep_time = max(0, target_iteration_time - iteration_duration)
         time_module.sleep(sleep_time)
 
@@ -269,10 +268,9 @@ def handle_update_observer(data):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', observer_lat=observer_lat, observer_lon=observer_lon)
 
 if __name__ == '__main__':
-    print("Address: http://127.0.0.1:5000/")
     thread = threading.Thread(target=update_orbit_data)
     thread.daemon = True
     thread.start()
