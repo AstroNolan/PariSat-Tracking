@@ -1,6 +1,3 @@
-import eventlet
-eventlet.monkey_patch()
-
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 from astropy import units as u
@@ -26,7 +23,7 @@ from beyond.dates import Date
 import gc
 
 app = Flask(__name__)
-socketio = SocketIO(app, async_mode='eventlet')
+socketio = SocketIO(app)
 logging.getLogger('werkzeug').disabled = True
 
 observer_lat = 48.8566
