@@ -278,4 +278,4 @@ if __name__ == '__main__':
     thread = threading.Thread(target=update_orbit_data)
     thread.daemon = True
     thread.start()
-    socketio.run(app)
+    socketio.run(app, host='0.0.0.0', port=int(os.environ.get("PORT", 10000)), debug=False)
