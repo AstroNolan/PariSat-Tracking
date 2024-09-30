@@ -21,6 +21,7 @@ from beyond.io.tle import Tle
 from beyond.frames import create_station
 from beyond.dates import Date
 import gc
+import os
 
 app = Flask(__name__)
 socketio = SocketIO(app)
