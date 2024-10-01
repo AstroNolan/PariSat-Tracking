@@ -1,3 +1,6 @@
+import eventlet
+eventlet.monkey_patch()
+
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 from astropy import units as u
@@ -271,7 +274,7 @@ def handle_update_observer(data):
 def index():
     return render_template('index.html', observer_lat=observer_lat, observer_lon=observer_lon)
 
-if __name__ == '__main__':
+if __name__ == '__main__':    
     thread = threading.Thread(target=update_orbit_data)
     thread.daemon = True
     thread.start()
