@@ -1,6 +1,3 @@
-import eventlet
-eventlet.monkey_patch()
-
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 from astropy import units as u
@@ -156,6 +153,7 @@ def NextPassageUpdate(tle, obs_lat, obs_lon):
 def update_orbit_data():
     global tle, observer_lat, observer_lon, passage_aos, passage_max, passage_los
     tle = GetTLE(98880)
+    print(tle)
     last_request = datetime.now(timezone.utc).hour
     tle_update_time_iso = tle['updated']
     tle_update_time = datetime.fromisoformat(tle_update_time_iso).strftime('%Y-%m-%d %H:%M:%S UTC')
@@ -278,4 +276,4 @@ if __name__ == '__main__':
     thread = threading.Thread(target=update_orbit_data)
     thread.daemon = True
     thread.start()
-    socketio.run(app, host='0.0.0.0', port=int(os.getenv("PORT", 5000)), debug=False)
+    socketio.run(app, host='127.0.0.1', port=int(os.getenv("PORT", 5000)), debug=True)
