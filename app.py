@@ -12,7 +12,6 @@ from astropy.coordinates import SphericalRepresentation
 import numpy as np
 import plotly.graph_objects as go
 from datetime import datetime, timedelta, timezone
-import threading
 import time as time_module
 import requests
 import logging
@@ -126,6 +125,8 @@ def NextPassage(tle_raw, obs_lat, obs_lon):
             break
     
     next_visibility['MAX'] = next_visibility['MAX'] or first_passage
+    del tle, station, orb
+    gc.collect()
     return next_visibility
 
 def NextPassageUpdate(tle, obs_lat, obs_lon):
@@ -144,7 +145,7 @@ def NextPassageUpdate(tle, obs_lat, obs_lon):
         'azimuth': f"{azimuth:.2f}°",
         'elevation': f"{elevation:.2f}°",
         'distance': f"{distance:.0f} km"
-    }        
+    }
 
     return ((next_passage_time['AOS']['date'].datetime.replace(tzinfo=timezone.utc) if next_passage_time.get('AOS') else None),
             (next_passage_time['MAX']['date'].datetime.replace(tzinfo=timezone.utc) if next_passage_time.get('MAX') else None),
@@ -250,11 +251,12 @@ def update_orbit_data():
 
         socketio.emit('update_orbit', {'fig': fig_dict, 'tle_update_time': tle_update_time})
         socketio.emit('next_passage_time', next_passage_data)
+        del gp, fig_dict, prs_spacecraft, t_span
         gc.collect()
 
         iteration_duration = time_module.time() - iteration_start_time
         sleep_time = max(0, target_iteration_time - iteration_duration)
-        time_module.sleep(sleep_time)
+        socketio.sleep(sleep_time)
 
 @socketio.on('update_observer')
 def handle_update_observer(data):
@@ -272,7 +274,5 @@ def index():
     return render_template('index.html', observer_lat=observer_lat, observer_lon=observer_lon)
 
 if __name__ == '__main__':    
-    thread = threading.Thread(target=update_orbit_data)
-    thread.daemon = True
-    thread.start()
+    socketio.start_background_task(update_orbit_data)
     socketio.run(app, host='127.0.0.1', port=int(os.getenv("PORT", 5000)), debug=False)

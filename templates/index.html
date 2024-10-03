@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PariSat Live Tracking</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -40,14 +41,18 @@
             height: 100%;
             padding: 10px;
             box-sizing: border-box;
+            align-items: center;
+            justify-content: center;
         }
         #plot {
             flex: 0 1 70%;
-            height: 100%;
+            height: 95%;
+            align-items: center;
+            justify-content: center;
         }
         #description {
             flex: 0 1 30%;
-            height: 100%;
+            height: auto;
             display: flex;
             flex-direction: column;
             align-items: left;
