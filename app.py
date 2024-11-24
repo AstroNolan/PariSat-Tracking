@@ -153,7 +153,7 @@ def NextPassageUpdate(tle, obs_lat, obs_lon):
 
 def update_orbit_data():
     global tle, observer_lat, observer_lon, passage_aos, passage_max, passage_los
-    tle = GetTLE(98880)
+    tle = GetTLE(60239)
     last_request = datetime.now(timezone.utc).hour
     tle_update_time_iso = tle['updated']
     tle_update_time = datetime.fromisoformat(tle_update_time_iso).strftime('%Y-%m-%d %H:%M:%S UTC')
@@ -241,7 +241,7 @@ def update_orbit_data():
                     trace[key] = value.tolist()
 
         if current_time.second == 0 and current_time.minute == 0 and current_time.hour != last_request:
-            tle = GetTLE(98880)
+            tle = GetTLE(60239)
             last_request = current_time.hour
             tle_update_time_iso = tle['updated']
             tle_update_time = datetime.fromisoformat(tle_update_time_iso).strftime('%Y-%m-%d %H:%M:%S')
