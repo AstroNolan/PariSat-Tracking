@@ -275,4 +275,4 @@ def index():
 
 if __name__ == '__main__':    
     socketio.start_background_task(update_orbit_data)
-    socketio.run(app, host='127.0.0.1', port=int(os.getenv("PORT", 5000)), debug=False)
+    socketio.run(app, allow_unsafe_werkzeug=True)
