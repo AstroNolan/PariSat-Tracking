@@ -158,7 +158,7 @@ def update_orbit_data():
     tle_update_time_iso = tle['updated']
     tle_update_time = datetime.fromisoformat(tle_update_time_iso).strftime('%Y-%m-%d %H:%M:%S UTC')
     passage_aos, passage_max, passage_los = NextPassageUpdate(tle, observer_lat, observer_lon)
-    target_iteration_time = 1.0 
+    target_iteration_time = 0.5
 
     while True:
         iteration_start_time = time_module.time()
